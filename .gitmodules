@@ -1,0 +1,3 @@
+[submodule "lab/u02/vz-g2-projects-orm"]
+	path = lab/u02/vz-g2-projects-orm
+	url = git@github.com:swt6-2022ss/vz-g2-projects-orm.git
