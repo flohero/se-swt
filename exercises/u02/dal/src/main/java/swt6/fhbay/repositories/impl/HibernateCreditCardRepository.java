@@ -7,7 +7,7 @@ import swt6.fhbay.repositories.impl.base.HibernateRepository;
 import javax.persistence.EntityManager;
 
 public class HibernateCreditCardRepository extends HibernateRepository<CreditCard, Long> implements CreditCardRepository {
-    protected HibernateCreditCardRepository(EntityManager entityManager) {
+    public HibernateCreditCardRepository(EntityManager entityManager) {
         super(entityManager);
     }
 

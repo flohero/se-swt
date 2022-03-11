@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 public class HibernateBankAccountRepository extends HibernateRepository<BankAccount, Long> implements BankAccountRepository {
 
-    protected HibernateBankAccountRepository(EntityManager entityManager) {
+    public HibernateBankAccountRepository(EntityManager entityManager) {
         super(entityManager);
     }
 

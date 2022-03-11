@@ -26,7 +26,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     void testFindCreditCardById() {
         // given
         var repo = new HibernateCreditCardRepository(em);
-        var creditCard = repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        var creditCard = repo.save(new CreditCard("max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
         var res = repo.findById(creditCard.getId());
@@ -53,8 +53,8 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     void findAllCreditCards() {
         // given
         var repo = new HibernateCreditCardRepository(em);
-        repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
-        repo.save(new CreditCard(null, "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
+        repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        repo.save(new CreditCard( "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
 
         // when
         var res = repo.findAll();
@@ -68,8 +68,8 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     void testCountAllCreditCards() {
         // given
         var repo = new HibernateCreditCardRepository(em);
-        repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
-        repo.save(new CreditCard(null, "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
+        repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        repo.save(new CreditCard( "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
 
         // when
         var res = repo.countAll();
@@ -85,7 +85,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
         var repo = new HibernateCreditCardRepository(em);
 
         // when
-        var res = repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        var res = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // then
         assertNotNull(res);
@@ -93,10 +93,10 @@ class HibernateCreditCardRepositoryTest extends TestBase {
 
     @Test
     @DisplayName("Remove CreditCard")
-    void testRemoveAccount() {
+    void testRemoveCreditCard() {
         // given
         var repo = new HibernateCreditCardRepository(em);
-        var creditCard = repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        var creditCard = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
         repo.remove(creditCard);
@@ -111,7 +111,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     void testRemoveCreditCardId() {
         // given
         var repo = new HibernateCreditCardRepository(em);
-        var creditCard = repo.save(new CreditCard(null, "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
+        var creditCard = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
         var res = repo.removeById(creditCard.getId());
@@ -121,7 +121,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     }
 
     @Test
-    @DisplayName("Remove non existent category by ID returns zero")
+    @DisplayName("Remove non existent CreditCard by ID returns zero")
     void testRemoveNonExistentCreditCardId_returnsZero() {
         // given
         var repo = new HibernateCreditCardRepository(em);

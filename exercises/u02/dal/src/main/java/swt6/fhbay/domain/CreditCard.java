@@ -32,6 +32,14 @@ public class CreditCard extends PaymentMethod {
         this.expiry = expiry;
     }
 
+    public CreditCard(String firstname, String lastname, String brand, String cardNumber, Address address, LocalDate expiry) {
+        super(firstname, lastname);
+        this.brand = brand;
+        this.cardNumber = cardNumber;
+        this.address = address;
+        this.expiry = expiry;
+    }
+
     public String getBrand() {
         return brand;
     }

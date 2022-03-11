@@ -16,6 +16,11 @@ public class BankAccount extends PaymentMethod {
         this.iban = iban;
     }
 
+    public BankAccount(String firstname, String lastname, String iban) {
+        super(firstname, lastname);
+        this.iban = iban;
+    }
+
     public String getIban() {
         return iban;
     }

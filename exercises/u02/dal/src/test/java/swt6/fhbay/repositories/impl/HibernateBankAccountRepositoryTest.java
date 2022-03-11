@@ -24,7 +24,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     void testFindBankAccountById() {
         // given
         var repo = new HibernateBankAccountRepository(em);
-        var bankAccount = repo.save(new BankAccount(null, "max", "muster", "IBAN"));
+        var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
         var res = repo.findById(bankAccount.getId());
@@ -48,11 +48,11 @@ class HibernateBankAccountRepositoryTest extends TestBase {
 
     @Test
     @DisplayName("Find all BankAccounts")
-    void findAllBankAccounts() {
+    void testFindAllBankAccounts() {
         // given
         var repo = new HibernateBankAccountRepository(em);
-        repo.save(new BankAccount(null, "max", "muster", "IBAN"));
-        repo.save(new BankAccount(null, "max", "muster", "IBAN2"));
+        repo.save(new BankAccount( "max", "muster", "IBAN"));
+        repo.save(new BankAccount( "max", "muster", "IBAN2"));
 
         // when
         var res = repo.findAll();
@@ -66,8 +66,8 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     void testCountAllBankAccounts() {
         // given
         var repo = new HibernateBankAccountRepository(em);
-        repo.save(new BankAccount(null, "max", "muster", "IBAN"));
-        repo.save(new BankAccount(null, "max", "muster", "IBAN2"));
+        repo.save(new BankAccount( "max", "muster", "IBAN"));
+        repo.save(new BankAccount( "max", "muster", "IBAN2"));
 
         // when
         var res = repo.countAll();
@@ -83,7 +83,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
         var repo = new HibernateBankAccountRepository(em);
 
         // when
-        var res = repo.save(new BankAccount(null, "max", "muster", "IBAN"));
+        var res = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // then
         assertNotNull(res);
@@ -91,10 +91,10 @@ class HibernateBankAccountRepositoryTest extends TestBase {
 
     @Test
     @DisplayName("Remove BankAccount")
-    void testRemoveAccount() {
+    void testRemoveBankAccount() {
         // given
         var repo = new HibernateBankAccountRepository(em);
-        var bankAccount = repo.save(new BankAccount(null, "max", "muster", "IBAN"));
+        var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
         repo.remove(bankAccount);
@@ -109,7 +109,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     void testRemoveBankAccountId() {
         // given
         var repo = new HibernateBankAccountRepository(em);
-        var bankAccount = repo.save(new BankAccount(null, "max", "muster", "IBAN"));
+        var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
         var res = repo.removeById(bankAccount.getId());
@@ -119,7 +119,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     }
 
     @Test
-    @DisplayName("Remove non existent category by ID returns zero")
+    @DisplayName("Remove non existent BankAccount by ID returns zero")
     void testRemoveNonExistentBankAccountId_returnsZero() {
         // given
         var repo = new HibernateBankAccountRepository(em);

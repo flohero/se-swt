@@ -36,13 +36,12 @@ public class Customer extends EntityBase {
 
     }
 
-    public Customer(String firstname, String lastname, String emailAddress, Address shippingAddress, Address paymentAddress, Set<PaymentMethod> paymentMethods) {
+    public Customer(String firstname, String lastname, String emailAddress, Address shippingAddress, Address paymentAddress) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.emailAddress = emailAddress;
         this.shippingAddress = shippingAddress;
         this.paymentAddress = paymentAddress;
-        this.paymentMethods = paymentMethods;
     }
 
     public String getFirstname() {
@@ -104,5 +103,16 @@ public class Customer extends EntityBase {
         }
         paymentMethod.setCustomer(this);
         paymentMethods.add(paymentMethod);
+    }
+
+    public void removePaymentMethod(PaymentMethod paymentMethod) {
+        if (paymentMethod == null) {
+            throw new IllegalArgumentException("PaymentMethod cannot be null");
+        }
+        if(paymentMethod.getCustomer() == null) {
+            throw new IllegalStateException("PaymentMethod does not have a customer");
+        }
+        paymentMethod.setCustomer(null);
+        paymentMethods.remove(paymentMethod);
     }
 }

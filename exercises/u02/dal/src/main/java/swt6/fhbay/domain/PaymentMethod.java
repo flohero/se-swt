@@ -24,6 +24,11 @@ public abstract class PaymentMethod extends EntityBase {
         this.lastname = lastname;
     }
 
+    public PaymentMethod(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
     public Customer getCustomer() {
         return customer;
     }
