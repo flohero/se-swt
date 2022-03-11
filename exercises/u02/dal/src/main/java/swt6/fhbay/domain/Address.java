@@ -1,10 +1,10 @@
 package swt6.fhbay.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 
-@Entity
-public class Address extends EntityBase{
+@Embeddable
+public class Address {
 
     @Column(nullable = false)
     private String country;

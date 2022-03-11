@@ -8,6 +8,9 @@
 		<!-- The provider only needs to be set if you use several JPA providers -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 		<class>swt6.fhbay.domain.Category</class>
+		<class>swt6.fhbay.domain.Customer</class>
+		<class>swt6.fhbay.domain.PaymentMethod</class>
+		<class>swt6.fhbay.domain.BankAccount</class>
 		<properties>
 			<!-- Scan for annotated classes. The specification only
 			     requires managed providers to implement this feature.

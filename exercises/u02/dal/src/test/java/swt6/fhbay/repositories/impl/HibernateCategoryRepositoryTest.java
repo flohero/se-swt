@@ -1,36 +1,12 @@
-package swt6.fhbay;
+package swt6.fhbay.repositories.impl;
 
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import swt6.fhbay.domain.Category;
-import swt6.fhbay.repositories.impl.HibernateCategoryRepository;
-import swt6.fhbay.util.JpaUtil;
-
-import javax.persistence.EntityManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateCategoryRepositoryTest {
-    private EntityManager em;
-
-    @BeforeAll
-    static void setUpAll() {
-        JpaUtil.getEntityManagerFactory();
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        JpaUtil.closeEntityManagerFactory();
-    }
-
-    @BeforeEach
-    void setUp() {
-        em = JpaUtil.getTransactedEntityManager();
-    }
-
-    @AfterEach
-    void tearDown() {
-        JpaUtil.rollback();
-    }
+class HibernateCategoryRepositoryTest extends TestBase{
 
     @Test
     @DisplayName("Repository returns correct domain class")
@@ -44,7 +20,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test Class is Inserted")
+    @DisplayName("Class is Inserted")
     void testInsertingSingleCategoryReturnsCategory() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -58,7 +34,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test Insert category with subcategory")
+    @DisplayName("Insert category with subcategory")
     void testInsertCategoryWithSubCategory() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -72,7 +48,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test Update category name")
+    @DisplayName("Update category name")
     void testUpdateCategoryName() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -88,7 +64,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test Update add subcategory")
+    @DisplayName("Update add subcategory")
     void testUpdateParentCategory() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -103,7 +79,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test Update remove subcategory relation")
+    @DisplayName("Update remove subcategory relation")
     void testRemoveParentCategoryRelation() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -121,7 +97,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test remove category")
+    @DisplayName("Remove category")
     void testRemoveCategory() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -136,7 +112,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test remove category by ID")
+    @DisplayName("Remove category by ID")
     void testRemoveCategoryId() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -150,7 +126,20 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test find category by ID")
+    @DisplayName("Remove non existent category by ID returns zero")
+    void testRemoveNonExistentCategoryId_returnsZero() {
+        // given
+        var repo = new HibernateCategoryRepository(em);
+
+        // when
+        var res = repo.removeById(1000L);
+
+        //then
+        assertEquals(0, res);
+    }
+
+    @Test
+    @DisplayName("Find category by ID")
     void testFindCategoryId() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -164,7 +153,20 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test find all categories")
+    @DisplayName("Find category by ID for non existent category returns null")
+    void testFindCategoryIdForNonExistentCategory_returnsNull() {
+        // given
+        var repo = new HibernateCategoryRepository(em);
+
+        // when
+        var res = repo.findById(1000L);
+
+        //then
+        assertNull(res);
+    }
+
+    @Test
+    @DisplayName("Find all categories")
     void testFindAllCategories() {
         // given
         var repo = new HibernateCategoryRepository(em);
@@ -179,7 +181,7 @@ class HibernateCategoryRepositoryTest {
     }
 
     @Test
-    @DisplayName("Test count categories returns correct category count")
+    @DisplayName("Count categories returns correct category count")
     void testCountAllCategories() {
         // given
         var repo = new HibernateCategoryRepository(em);
