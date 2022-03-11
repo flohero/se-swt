@@ -39,6 +39,6 @@ public class Article extends EntityBase {
     private BiddingState state;
 
     @ManyToOne
-    private ArticleCategory category;
+    private Category category;
 
 }
