@@ -12,6 +12,8 @@
 		<class>swt6.fhbay.domain.PaymentMethod</class>
 		<class>swt6.fhbay.domain.BankAccount</class>
 		<class>swt6.fhbay.domain.CreditCard</class>
+		<class>swt6.fhbay.domain.Article</class>
+
 		<properties>
 			<!-- Scan for annotated classes. The specification only
 			     requires managed providers to implement this feature.

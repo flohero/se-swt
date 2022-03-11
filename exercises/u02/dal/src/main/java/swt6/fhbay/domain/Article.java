@@ -25,8 +25,7 @@ public class Article extends EntityBase {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @ManyToOne
-    @Column(nullable = false)
+    @ManyToOne(optional = false)
     private Customer seller;
 
     @ManyToOne
@@ -70,6 +69,94 @@ public class Article extends EntityBase {
         this.buyer = buyer;
         this.secondHighestBidder = secondHighestBidder;
         this.state = state;
+        this.category = category;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getStartPrice() {
+        return startPrice;
+    }
+
+    public void setStartPrice(double startPrice) {
+        this.startPrice = startPrice;
+    }
+
+    public double getEndPrice() {
+        return endPrice;
+    }
+
+    public void setEndPrice(double endPrice) {
+        this.endPrice = endPrice;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Customer getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Customer seller) {
+        this.seller = seller;
+    }
+
+    public Customer getBuyer() {
+        return buyer;
+    }
+
+    public void setBuyer(Customer buyer) {
+        this.buyer = buyer;
+    }
+
+    public Customer getSecondHighestBidder() {
+        return secondHighestBidder;
+    }
+
+    public void setSecondHighestBidder(Customer secondHighestBidder) {
+        this.secondHighestBidder = secondHighestBidder;
+    }
+
+    public BiddingState getState() {
+        return state;
+    }
+
+    public void setState(BiddingState state) {
+        this.state = state;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
         this.category = category;
     }
 }

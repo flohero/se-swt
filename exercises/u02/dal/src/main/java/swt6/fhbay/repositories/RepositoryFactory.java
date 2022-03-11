@@ -1,9 +1,6 @@
 package swt6.fhbay.repositories;
 
-import swt6.fhbay.repositories.impl.JpaBankAccountRepository;
-import swt6.fhbay.repositories.impl.JpaCategoryRepository;
-import swt6.fhbay.repositories.impl.JpaCreditCardRepository;
-import swt6.fhbay.repositories.impl.JpaCustomerRepository;
+import swt6.fhbay.repositories.impl.*;
 
 import javax.persistence.EntityManager;
 
@@ -26,5 +23,9 @@ public class RepositoryFactory {
 
     public static CategoryRepository getCategoryRepository(EntityManager entityManager) {
         return new JpaCategoryRepository(entityManager);
+    }
+
+    public static ArticleRepository getArticleRepository(EntityManager entityManager) {
+        return new JpaArticleRepository(entityManager);
     }
 }
