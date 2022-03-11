@@ -21,6 +21,9 @@ public class CreditCard extends PaymentMethod {
     @Column(nullable = false)
     private LocalDate expiry;
 
+    public CreditCard() {
+    }
+
     public CreditCard(Customer customer, String firstname, String lastname, String brand, String cardNumber, Address address, LocalDate expiry) {
         super(customer, firstname, lastname);
         this.brand = brand;
@@ -29,6 +32,35 @@ public class CreditCard extends PaymentMethod {
         this.expiry = expiry;
     }
 
-    public CreditCard() {
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public String getCardNumber() {
+        return cardNumber;
+    }
+
+    public void setCardNumber(String cardNumber) {
+        this.cardNumber = cardNumber;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public LocalDate getExpiry() {
+        return expiry;
+    }
+
+    public void setExpiry(LocalDate expiry) {
+        this.expiry = expiry;
     }
 }

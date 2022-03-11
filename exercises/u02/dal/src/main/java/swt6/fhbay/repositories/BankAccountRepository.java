@@ -1,7 +1,6 @@
-package swt6.fhbay.repositories.impl;
+package swt6.fhbay.repositories;
 
 import swt6.fhbay.domain.BankAccount;
-import swt6.fhbay.repositories.Repository;
 
 public interface BankAccountRepository extends Repository<BankAccount, Long> {
 }

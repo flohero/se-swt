@@ -5,4 +5,5 @@ module swt.fhbay.dal {
     exports swt6.fhbay.domain;
     opens swt6.fhbay.domain;
     exports swt6.fhbay.repositories.impl.base;
+    exports swt6.fhbay.repositories;
 }
