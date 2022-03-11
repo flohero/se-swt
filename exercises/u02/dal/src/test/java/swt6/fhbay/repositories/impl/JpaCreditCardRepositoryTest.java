@@ -9,12 +9,12 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateCreditCardRepositoryTest extends TestBase {
+class JpaCreditCardRepositoryTest extends TestBase {
     @Test
     @DisplayName("Repository returns correct domain class")
     void testPersistenceClassReturnsIsCorrectDomainClass() {
         // given
-        var repo = new HibernateCreditCardRepository(null);
+        var repo = new JpaCreditCardRepository(null);
         // when
         var persistentClass = repo.getPersistentClass();
         // then
@@ -25,7 +25,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Find CreditCard by Id")
     void testFindCreditCardById() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
         var creditCard = repo.save(new CreditCard("max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
@@ -39,7 +39,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Find by ID for non existent CreditCard returns null")
     void testFindByIdForNonExistentCreditCard_returnsNull() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
 
         // when
         var res = repo.findById(1000L);
@@ -52,7 +52,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Find all CreditCards")
     void findAllCreditCards() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
         repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
         repo.save(new CreditCard( "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
 
@@ -67,7 +67,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Count all CreditCards")
     void testCountAllCreditCards() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
         repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
         repo.save(new CreditCard( "franz", "muster", "Visa", "cool number2", new Address(), LocalDate.now().plusYears(1)));
 
@@ -82,7 +82,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Insert CreditCard successfully")
     void testInsertCreditCardSuccessfully() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
 
         // when
         var res = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
@@ -95,7 +95,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Remove CreditCard")
     void testRemoveCreditCard() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
         var creditCard = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
@@ -110,7 +110,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Remove CreditCard by ID")
     void testRemoveCreditCardId() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
         var creditCard = repo.save(new CreditCard( "max", "muster", "Visa", "cool number", new Address(), LocalDate.now().plusYears(1)));
 
         // when
@@ -124,7 +124,7 @@ class HibernateCreditCardRepositoryTest extends TestBase {
     @DisplayName("Remove non existent CreditCard by ID returns zero")
     void testRemoveNonExistentCreditCardId_returnsZero() {
         // given
-        var repo = new HibernateCreditCardRepository(em);
+        var repo = new JpaCreditCardRepository(em);
 
         // when
         var res = repo.removeById(1000L);

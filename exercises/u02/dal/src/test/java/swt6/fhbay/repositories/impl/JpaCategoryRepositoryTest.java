@@ -6,13 +6,13 @@ import swt6.fhbay.domain.Category;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateCategoryRepositoryTest extends TestBase{
+class JpaCategoryRepositoryTest extends TestBase{
 
     @Test
     @DisplayName("Repository returns correct domain class")
     void testPersistenceClassReturnsIsCorrectDomainClass() {
         // given
-        var repo = new HibernateCategoryRepository(null);
+        var repo = new JpaCategoryRepository(null);
         // when
         var persistentClass = repo.getPersistentClass();
         // then
@@ -23,7 +23,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Class is Inserted")
     void testInsertingSingleCategoryReturnsCategory() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var cat = new Category("Fish");
 
         // when
@@ -37,7 +37,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Insert category with subcategory")
     void testInsertCategoryWithSubCategory() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var cat = new Category("Fish", new Category("Animals"));
 
         // when
@@ -51,7 +51,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Update category name")
     void testUpdateCategoryName() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var category = repo.save(new Category("Fish"));
 
         // when
@@ -67,7 +67,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Update add subcategory")
     void testUpdateParentCategory() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var category = repo.save(new Category("Fish"));
         var parentCategory = repo.save(new Category("Animal"));
         // when
@@ -82,7 +82,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Update remove subcategory relation")
     void testRemoveParentCategoryRelation() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var parentCategory = repo.save(new Category("Animal"));
         var category = repo.save(new Category("Fish", parentCategory));
         // when
@@ -100,7 +100,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Remove category")
     void testRemoveCategory() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var category = repo.save(new Category("Fish"));
 
         // when
@@ -115,7 +115,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Remove category by ID")
     void testRemoveCategoryId() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var category = repo.save(new Category("Fish"));
 
         // when
@@ -129,7 +129,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Remove non existent category by ID returns zero")
     void testRemoveNonExistentCategoryId_returnsZero() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
 
         // when
         var res = repo.removeById(1000L);
@@ -142,7 +142,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Find category by ID")
     void testFindCategoryId() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         var category = repo.save(new Category("Fish"));
 
         // when
@@ -156,7 +156,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Find category by ID for non existent category returns null")
     void testFindCategoryIdForNonExistentCategory_returnsNull() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
 
         // when
         var res = repo.findById(1000L);
@@ -169,7 +169,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Find all categories")
     void testFindAllCategories() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         repo.save(new Category("Fish"));
         repo.save(new Category("Bird"));
 
@@ -184,7 +184,7 @@ class HibernateCategoryRepositoryTest extends TestBase{
     @DisplayName("Count categories returns correct category count")
     void testCountAllCategories() {
         // given
-        var repo = new HibernateCategoryRepository(em);
+        var repo = new JpaCategoryRepository(em);
         repo.save(new Category("Fish"));
         repo.save(new Category("Bird"));
 

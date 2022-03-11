@@ -10,10 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public abstract class HibernateRepository<T extends EntityBase, ID extends Long> implements Repository<T, ID> {
+public abstract class JpaRepository<T extends EntityBase, ID extends Long> implements Repository<T, ID> {
     private final EntityManager entityManager;
 
-    protected HibernateRepository(EntityManager entityManager) {
+    protected JpaRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 

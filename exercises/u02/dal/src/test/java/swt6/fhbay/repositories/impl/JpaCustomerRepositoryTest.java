@@ -8,13 +8,13 @@ import swt6.fhbay.domain.Customer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateCustomerRepositoryTest extends TestBase {
+class JpaCustomerRepositoryTest extends TestBase {
 
     @Test
     @DisplayName("Repository returns correct domain class")
     void testPersistenceClassReturnsIsCorrectDomainClass() {
         // given
-        var repo = new HibernateCustomerRepository(null);
+        var repo = new JpaCustomerRepository(null);
         // when
         var persistentClass = repo.getPersistentClass();
         // then
@@ -25,7 +25,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Find Customer by Id")
     void testFindCustomerById() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         var customer = repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
 
         // when
@@ -39,7 +39,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Find by ID for non existent Customer returns null")
     void testFindByIdForNonExistentCustomer_returnsNull() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
 
         // when
         var res = repo.findById(1000L);
@@ -52,7 +52,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Find all Customers")
     void findAllCustomers() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
         repo.save(new Customer("max2", "muster", "max2@muster.com", new Address(), new Address()));
 
@@ -67,7 +67,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Count all Customers")
     void testCountAllCustomers() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
         repo.save(new Customer("max", "muster", "max2@muster.com", new Address(), new Address()));
 
@@ -82,7 +82,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Insert Customer successfully")
     void testInsertCustomerSuccessfully() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
 
         // when
         var res = repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
@@ -95,7 +95,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Remove Customer")
     void testRemoveCustomer() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         var customer = repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
 
         // when
@@ -110,7 +110,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Remove Customer by ID")
     void testRemoveCustomerId() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         var customer = repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
 
         // when
@@ -124,7 +124,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Remove non existent Customer by ID returns zero")
     void testRemoveNonExistentCustomerId_returnsZero() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
 
         // when
         var res = repo.removeById(1000L);
@@ -137,7 +137,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Find Customers by lastname")
     void testFindCustomersByLastname() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         repo.save(new Customer("max", "muster", "max@muster.com", new Address(), new Address()));
         repo.save(new Customer("franz", "muster", "franz@muster.com", new Address(), new Address()));
         repo.save(new Customer("Dr", "Acula", "dr@acula.com", new Address(), new Address()));
@@ -153,7 +153,7 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Add PaymentMethod to Customer")
     void testAddPaymentMethodToCustomer() {
         // given
-        var repo = new HibernateCustomerRepository(em);
+        var repo = new JpaCustomerRepository(em);
         var customer = new Customer("max", "muster", "max@muster.com", new Address(), new Address());
 
         // when
@@ -171,8 +171,8 @@ class HibernateCustomerRepositoryTest extends TestBase {
     @DisplayName("Remove PaymentMethod from Customer")
     void testRemovePaymentMethodFromCustomer() {
         // given
-        var repo = new HibernateCustomerRepository(em);
-        var bankAccountRepository = new HibernateBankAccountRepository(em);
+        var repo = new JpaCustomerRepository(em);
+        var bankAccountRepository = new JpaBankAccountRepository(em);
         var customer = new Customer("max", "muster", "max@muster.com", new Address(), new Address());
         var paymentMethod = bankAccountRepository.save(new BankAccount("max", "muster", "IBAN"));
         customer.addPaymentMethod(paymentMethod);

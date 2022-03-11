@@ -41,4 +41,35 @@ public class Article extends EntityBase {
     @ManyToOne
     private Category category;
 
+    public Article() {
+    }
+
+    public Article(String name, String description, double startPrice, double endPrice, LocalDate startDate, LocalDate endDate, BiddingState state) {
+        this.name = name;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.endPrice = endPrice;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.state = state;
+    }
+
+    public Article(String name, String description,
+                   double startPrice, double endPrice,
+                   LocalDate startDate, LocalDate endDate,
+                   Customer seller, Customer buyer,
+                   Customer secondHighestBidder,
+                   BiddingState state, Category category) {
+        this.name = name;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.endPrice = endPrice;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.seller = seller;
+        this.buyer = buyer;
+        this.secondHighestBidder = secondHighestBidder;
+        this.state = state;
+        this.category = category;
+    }
 }

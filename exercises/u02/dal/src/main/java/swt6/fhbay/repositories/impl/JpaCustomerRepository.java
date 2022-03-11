@@ -2,14 +2,14 @@ package swt6.fhbay.repositories.impl;
 
 import swt6.fhbay.domain.Customer;
 import swt6.fhbay.repositories.CustomerRepository;
-import swt6.fhbay.repositories.impl.base.HibernateRepository;
+import swt6.fhbay.repositories.impl.base.JpaRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
-public class HibernateCustomerRepository extends HibernateRepository<Customer, Long> implements CustomerRepository {
-    public HibernateCustomerRepository(EntityManager entityManager) {
+public class JpaCustomerRepository extends JpaRepository<Customer, Long> implements CustomerRepository {
+    public JpaCustomerRepository(EntityManager entityManager) {
         super(entityManager);
     }
 

@@ -2,13 +2,13 @@ package swt6.fhbay.repositories.impl;
 
 import swt6.fhbay.domain.BankAccount;
 import swt6.fhbay.repositories.BankAccountRepository;
-import swt6.fhbay.repositories.impl.base.HibernateRepository;
+import swt6.fhbay.repositories.impl.base.JpaRepository;
 
 import javax.persistence.EntityManager;
 
-public class HibernateBankAccountRepository extends HibernateRepository<BankAccount, Long> implements BankAccountRepository {
+public class JpaBankAccountRepository extends JpaRepository<BankAccount, Long> implements BankAccountRepository {
 
-    public HibernateBankAccountRepository(EntityManager entityManager) {
+    public JpaBankAccountRepository(EntityManager entityManager) {
         super(entityManager);
     }
 

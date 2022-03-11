@@ -1,9 +1,9 @@
 package swt6.fhbay.repositories;
 
-import swt6.fhbay.repositories.impl.HibernateBankAccountRepository;
-import swt6.fhbay.repositories.impl.HibernateCategoryRepository;
-import swt6.fhbay.repositories.impl.HibernateCreditCardRepository;
-import swt6.fhbay.repositories.impl.HibernateCustomerRepository;
+import swt6.fhbay.repositories.impl.JpaBankAccountRepository;
+import swt6.fhbay.repositories.impl.JpaCategoryRepository;
+import swt6.fhbay.repositories.impl.JpaCreditCardRepository;
+import swt6.fhbay.repositories.impl.JpaCustomerRepository;
 
 import javax.persistence.EntityManager;
 
@@ -13,18 +13,18 @@ public class RepositoryFactory {
     }
 
     public static CustomerRepository getCustomerRepository(EntityManager entityManager) {
-        return new HibernateCustomerRepository(entityManager);
+        return new JpaCustomerRepository(entityManager);
     }
 
     public static CreditCardRepository getCreditCardRepository(EntityManager entityManager) {
-        return new HibernateCreditCardRepository(entityManager);
+        return new JpaCreditCardRepository(entityManager);
     }
 
     public static BankAccountRepository getBankAccountRepository(EntityManager entityManager) {
-        return new HibernateBankAccountRepository(entityManager);
+        return new JpaBankAccountRepository(entityManager);
     }
 
     public static CategoryRepository getCategoryRepository(EntityManager entityManager) {
-        return new HibernateCategoryRepository(entityManager);
+        return new JpaCategoryRepository(entityManager);
     }
 }

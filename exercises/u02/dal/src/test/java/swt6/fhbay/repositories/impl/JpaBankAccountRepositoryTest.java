@@ -6,13 +6,13 @@ import swt6.fhbay.domain.BankAccount;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HibernateBankAccountRepositoryTest extends TestBase {
+class JpaBankAccountRepositoryTest extends TestBase {
 
     @Test
     @DisplayName("Repository returns correct domain class")
     void testPersistenceClassReturnsIsCorrectDomainClass() {
         // given
-        var repo = new HibernateBankAccountRepository(null);
+        var repo = new JpaBankAccountRepository(null);
         // when
         var persistentClass = repo.getPersistentClass();
         // then
@@ -23,7 +23,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Find BankAccount by Id")
     void testFindBankAccountById() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
         var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
@@ -37,7 +37,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Find by ID for non existent BankAccount returns null")
     void testFindByIdForNonExistentBankAccount_returnsNull() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
 
         // when
         var res = repo.findById(1000L);
@@ -50,7 +50,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Find all BankAccounts")
     void testFindAllBankAccounts() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
         repo.save(new BankAccount( "max", "muster", "IBAN"));
         repo.save(new BankAccount( "max", "muster", "IBAN2"));
 
@@ -65,7 +65,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Count all BankAccounts")
     void testCountAllBankAccounts() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
         repo.save(new BankAccount( "max", "muster", "IBAN"));
         repo.save(new BankAccount( "max", "muster", "IBAN2"));
 
@@ -80,7 +80,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Insert BankAccount successfully")
     void testInsertBankAccountSuccessfully() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
 
         // when
         var res = repo.save(new BankAccount( "max", "muster", "IBAN"));
@@ -93,7 +93,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Remove BankAccount")
     void testRemoveBankAccount() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
         var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
@@ -108,7 +108,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Remove BankAccount by ID")
     void testRemoveBankAccountId() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
         var bankAccount = repo.save(new BankAccount( "max", "muster", "IBAN"));
 
         // when
@@ -122,7 +122,7 @@ class HibernateBankAccountRepositoryTest extends TestBase {
     @DisplayName("Remove non existent BankAccount by ID returns zero")
     void testRemoveNonExistentBankAccountId_returnsZero() {
         // given
-        var repo = new HibernateBankAccountRepository(em);
+        var repo = new JpaBankAccountRepository(em);
 
         // when
         var res = repo.removeById(1000L);
