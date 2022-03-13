@@ -115,4 +115,16 @@ public class Customer extends EntityBase {
         paymentMethod.setCustomer(null);
         paymentMethods.remove(paymentMethod);
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", shippingAddress=" + shippingAddress +
+                ", paymentAddress=" + paymentAddress +
+                ", paymentMethods=" + paymentMethods +
+                '}';
+    }
 }

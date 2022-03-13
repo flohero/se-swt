@@ -61,4 +61,14 @@ public class Bid extends EntityBase {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "amount=" + amount +
+                ", date=" + date +
+                ", article=" + article +
+                ", customer=" + customer +
+                '}';
+    }
 }

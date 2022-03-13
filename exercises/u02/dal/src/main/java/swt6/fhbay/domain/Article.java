@@ -159,4 +159,21 @@ public class Article extends EntityBase {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", startPrice=" + startPrice +
+                ", endPrice=" + endPrice +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", seller=" + seller +
+                ", buyer=" + buyer +
+                ", secondHighestBidder=" + secondHighestBidder +
+                ", state=" + state +
+                ", category=" + category +
+                '}';
+    }
 }

@@ -71,4 +71,14 @@ public class CreditCard extends PaymentMethod {
     public void setExpiry(LocalDate expiry) {
         this.expiry = expiry;
     }
+
+    @Override
+    public String toString() {
+        return "CreditCard{" +
+                "brand='" + brand + '\'' +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", address=" + address +
+                ", expiry=" + expiry +
+                '}';
+    }
 }

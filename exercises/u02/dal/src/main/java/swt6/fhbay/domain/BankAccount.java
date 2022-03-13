@@ -28,4 +28,11 @@ public class BankAccount extends PaymentMethod {
     public void setIban(String iban) {
         this.iban = iban;
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "iban='" + iban + '\'' +
+                '}';
+    }
 }
