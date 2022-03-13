@@ -12,7 +12,7 @@ public class Category extends EntityBase {
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Category parentCategory;
 
-    @OneToMany(mappedBy="parentCategory")
+    @OneToMany(mappedBy="parentCategory", fetch = FetchType.LAZY)
     private Set<Category> subcategories = new HashSet<>();
 
     public Category() {
