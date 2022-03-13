@@ -43,7 +43,7 @@ class JpaBankAccountRepositoryTest extends TestBase {
         var res = repo.findById(1000L);
 
         //then
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -101,7 +101,7 @@ class JpaBankAccountRepositoryTest extends TestBase {
 
         //then
         var res = repo.findById(bankAccount.getId());
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test

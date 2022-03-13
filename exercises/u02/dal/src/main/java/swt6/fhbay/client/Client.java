@@ -12,7 +12,6 @@ public class Client {
         var repo = new JpaCategoryRepository(em);
         var cat = new Category("Dolphin");
 
-        // when
         var res = repo.save(cat);
 
         JpaUtil.commit();

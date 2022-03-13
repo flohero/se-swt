@@ -28,4 +28,8 @@ public class RepositoryFactory {
     public static ArticleRepository getArticleRepository(EntityManager entityManager) {
         return new JpaArticleRepository(entityManager);
     }
+
+    public static BidRepository getBidRepository(EntityManager entityManager) {
+        return new JpaBidRepository(entityManager);
+    }
 }

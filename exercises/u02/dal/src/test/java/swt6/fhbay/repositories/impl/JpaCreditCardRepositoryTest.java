@@ -45,7 +45,7 @@ class JpaCreditCardRepositoryTest extends TestBase {
         var res = repo.findById(1000L);
 
         //then
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -103,7 +103,7 @@ class JpaCreditCardRepositoryTest extends TestBase {
 
         //then
         var res = repo.findById(creditCard.getId());
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test

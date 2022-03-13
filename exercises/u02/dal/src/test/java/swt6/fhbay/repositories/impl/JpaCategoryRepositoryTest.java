@@ -59,7 +59,7 @@ class JpaCategoryRepositoryTest extends TestBase{
         repo.save(category);
 
         //then
-        var res = repo.findById(category.getId()).getName();
+        var res = repo.findById(category.getId()).get().getName();
         assertEquals("Bird", res);
     }
 
@@ -108,7 +108,7 @@ class JpaCategoryRepositoryTest extends TestBase{
 
         //then
         var res = repo.findById(category.getId());
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -162,7 +162,7 @@ class JpaCategoryRepositoryTest extends TestBase{
         var res = repo.findById(1000L);
 
         //then
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test

@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class JpaRepository<T extends EntityBase, ID extends Long> implements Repository<T, ID> {
     private final EntityManager entityManager;
@@ -24,8 +25,8 @@ public abstract class JpaRepository<T extends EntityBase, ID extends Long> imple
     public abstract Class<T> getPersistentClass();
 
     @Override
-    public T findById(ID id) {
-        return getEntityManager().find(getPersistentClass(), id);
+    public Optional<T> findById(ID id) {
+        return Optional.ofNullable(getEntityManager().find(getPersistentClass(), id));
     }
 
     @Override

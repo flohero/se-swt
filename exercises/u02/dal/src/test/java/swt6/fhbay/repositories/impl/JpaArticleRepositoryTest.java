@@ -55,7 +55,7 @@ class JpaArticleRepositoryTest extends TestBase {
         var res = repo.findById(1000L);
 
         //then
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -159,7 +159,7 @@ class JpaArticleRepositoryTest extends TestBase {
 
         //then
         var res = repo.findById(article.getId());
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test

@@ -45,7 +45,7 @@ class JpaCustomerRepositoryTest extends TestBase {
         var res = repo.findById(1000L);
 
         //then
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -103,7 +103,7 @@ class JpaCustomerRepositoryTest extends TestBase {
 
         //then
         var res = repo.findById(customer.getId());
-        assertNull(res);
+        assertTrue(res.isEmpty());
     }
 
     @Test
@@ -176,7 +176,7 @@ class JpaCustomerRepositoryTest extends TestBase {
         var customer = new Customer("max", "muster", "max@muster.com", new Address(), new Address());
         var paymentMethod = bankAccountRepository.save(new BankAccount("max", "muster", "IBAN"));
         customer.addPaymentMethod(paymentMethod);
-        repo.save(customer);
+        customer = repo.save(customer);
 
         // when
         customer.removePaymentMethod(paymentMethod);
