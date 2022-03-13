@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_PASSWORD=bayfh
+      - MYSQL_USER=fhbay
+      - MYSQL_DATABASE=fhbay
