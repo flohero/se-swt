@@ -2,9 +2,6 @@ package swt6.fhbay.client;
 
 import swt6.fhbay.domain.*;
 import swt6.fhbay.repositories.RepositoryFactory;
-import swt6.fhbay.repositories.impl.JpaArticleRepository;
-import swt6.fhbay.repositories.impl.JpaCategoryRepository;
-import swt6.fhbay.repositories.impl.JpaCustomerRepository;
 import swt6.fhbay.util.JpaUtil;
 
 import java.time.LocalDate;
