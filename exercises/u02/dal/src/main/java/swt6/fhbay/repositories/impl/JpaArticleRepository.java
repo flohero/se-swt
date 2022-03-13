@@ -1,6 +1,7 @@
 package swt6.fhbay.repositories.impl;
 
 import swt6.fhbay.domain.Article;
+import swt6.fhbay.domain.Article_;
 import swt6.fhbay.repositories.ArticleRepository;
 import swt6.fhbay.repositories.impl.base.JpaRepository;
 
@@ -27,8 +28,8 @@ public class JpaArticleRepository extends JpaRepository<Article, Long> implement
         String pattern = "%" + text + "%";
         cd.where(
                 cb.or(
-                        cb.like(root.get("name"), pattern),
-                        cb.like(root.get("description"), pattern)
+                        cb.like(root.get(Article_.NAME), pattern),
+                        cb.like(root.get(Article_.DESCRIPTION), pattern)
                 )
         );
         return getEntityManager().createQuery(cd).getResultList();

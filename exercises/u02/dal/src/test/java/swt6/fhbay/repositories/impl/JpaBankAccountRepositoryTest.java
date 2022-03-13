@@ -30,7 +30,7 @@ class JpaBankAccountRepositoryTest extends TestBase {
         var res = repo.findById(bankAccount.getId());
 
         // then
-        assertNotNull(res);
+        assertTrue(res.isPresent());
     }
 
     @Test

@@ -1,6 +1,7 @@
 package swt6.fhbay.repositories.impl;
 
 import swt6.fhbay.domain.Customer;
+import swt6.fhbay.domain.Customer_;
 import swt6.fhbay.repositories.CustomerRepository;
 import swt6.fhbay.repositories.impl.base.JpaRepository;
 
@@ -23,7 +24,7 @@ public class JpaCustomerRepository extends JpaRepository<Customer, Long> impleme
         CriteriaBuilder cb = getEntityManager().getCriteriaBuilder();
         var cd = cb.createQuery(getPersistentClass());
         var root = cd.from(getPersistentClass());
-        cd.where(cb.like(root.get("lastname"), name));
+        cd.where(cb.like(root.get(Customer_.LASTNAME), name));
         return getEntityManager().createQuery(cd).getResultList();
     }
 }

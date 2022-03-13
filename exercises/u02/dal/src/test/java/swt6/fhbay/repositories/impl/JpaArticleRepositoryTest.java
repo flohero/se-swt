@@ -2,10 +2,7 @@ package swt6.fhbay.repositories.impl;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import swt6.fhbay.domain.Address;
-import swt6.fhbay.domain.Article;
-import swt6.fhbay.domain.BiddingState;
-import swt6.fhbay.domain.Customer;
+import swt6.fhbay.domain.*;
 
 import java.time.LocalDate;
 
@@ -27,6 +24,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Find Article by Id")
     void testFindArticleById() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
         var customerRepo = new JpaCustomerRepository(em);
@@ -36,13 +36,13 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.findById(article.getId());
 
         // then
-        assertNotNull(res);
+        assertTrue(res.isPresent());
     }
 
     @Test
@@ -62,6 +62,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Find all Article")
     void findAllArticles() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         var customerRepo = new JpaCustomerRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
@@ -72,14 +75,14 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         repo.save(new Article("Flamingo", "Pink Bird",
                 100, 0,
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.findAll();
@@ -92,6 +95,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Count all Articles")
     void testCountAllArticles() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         var customerRepo = new JpaCustomerRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
@@ -102,14 +108,14 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         repo.save(new Article("Flamingo", "Pink Bird",
                 100, 0,
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.countAll();
@@ -123,6 +129,8 @@ class JpaArticleRepositoryTest extends TestBase {
     void testInsertArticleSuccessfully() {
         // given
         var repo = new JpaArticleRepository(em);
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
 
         // when
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
@@ -133,7 +141,7 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // then
         assertNotNull(res);
@@ -143,6 +151,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Remove Article")
     void testRemoveArticle() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
         var customerRepo = new JpaCustomerRepository(em);
@@ -152,7 +163,7 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         repo.remove(article);
@@ -166,6 +177,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Remove Article by ID")
     void testRemoveArticleId() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
         var customerRepo = new JpaCustomerRepository(em);
@@ -175,7 +189,7 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.removeById(article.getId());
@@ -201,6 +215,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Find were Name contains string returns correct article")
     void testFindWereNameContainsString_returnsCorrectArticle() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         var customerRepo = new JpaCustomerRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
@@ -211,14 +228,14 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         repo.save(new Article("Sparrow", "Pirate Bird",
                 100, 0,
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.findWereNameOrDescriptionContains("lamingo").get(0);
@@ -231,6 +248,9 @@ class JpaArticleRepositoryTest extends TestBase {
     @DisplayName("Find were Description contains string returns correct articles")
     void testFindWereDescriptionContainsString_returnsCorrectArticle() {
         // given
+        var categoryRepo = new JpaCategoryRepository(em);
+        var cat = categoryRepo.save(new Category("Stuff"));
+
         var repo = new JpaArticleRepository(em);
         var customerRepo = new JpaCustomerRepository(em);
         Customer seller = new Customer("Max", "Muster", "max@muster.com", new Address(), new Address());
@@ -241,21 +261,21 @@ class JpaArticleRepositoryTest extends TestBase {
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         repo.save(new Article("Sparrow", "Pirate Bird",
                 100, 0,
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         repo.save(new Article("Python", "Comedy Group",
                 100, 0,
                 LocalDate.now(), LocalDate.now().plusDays(1),
                 seller,
                 null, null,
-                BiddingState.FOR_SALE, null));
+                BiddingState.FOR_SALE, cat));
 
         // when
         var res = repo.findWereNameOrDescriptionContains("Bird");

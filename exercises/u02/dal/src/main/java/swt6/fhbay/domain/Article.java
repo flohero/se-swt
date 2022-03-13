@@ -37,7 +37,7 @@ public class Article extends EntityBase {
     @Column(nullable = false)
     private BiddingState state;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Category category;
 
     public Article() {

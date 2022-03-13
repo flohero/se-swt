@@ -32,7 +32,7 @@ class JpaCustomerRepositoryTest extends TestBase {
         var res = repo.findById(customer.getId());
 
         // then
-        assertNotNull(res);
+        assertTrue(res.isPresent());
     }
 
     @Test

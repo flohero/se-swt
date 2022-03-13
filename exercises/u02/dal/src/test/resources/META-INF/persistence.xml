@@ -13,6 +13,7 @@
 		<class>swt6.fhbay.domain.BankAccount</class>
 		<class>swt6.fhbay.domain.CreditCard</class>
 		<class>swt6.fhbay.domain.Article</class>
+		<class>swt6.fhbay.domain.Bid</class>
 
 		<properties>
 			<!-- Scan for annotated classes. The specification only

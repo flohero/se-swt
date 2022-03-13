@@ -149,7 +149,7 @@ class JpaCategoryRepositoryTest extends TestBase{
         var res = repo.findById(category.getId());
 
         //then
-        assertNotNull(res);
+        assertTrue(res.isPresent());
     }
 
     @Test

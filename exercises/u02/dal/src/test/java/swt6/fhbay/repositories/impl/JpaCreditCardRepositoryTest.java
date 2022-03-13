@@ -32,7 +32,7 @@ class JpaCreditCardRepositoryTest extends TestBase {
         var res = repo.findById(creditCard.getId());
 
         // then
-        assertNotNull(res);
+        assertTrue(res.isPresent());
     }
 
     @Test
