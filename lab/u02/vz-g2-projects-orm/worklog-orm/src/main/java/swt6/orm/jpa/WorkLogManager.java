@@ -104,10 +104,10 @@ public class WorkLogManager {
             System.out.println("###> Fetched LogbookEntry ...");
 
             System.out.println("###> Fetching associated Employee ...");
-            Employee emp = entry.getEmployee();
+            //Employee emp = entry.getEmployee();
             System.out.println("###> Fetched associated Employee ...");
 
-            System.out.println(emp);
+            //System.out.println(emp);
             JpaUtil.commit();
         } catch (Exception e) {
             JpaUtil.rollback();
