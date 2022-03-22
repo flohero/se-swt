@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="worklog" class="swt6.spring.basics.aop.logic.WorkLogServiceImpl"/>
+
+    <bean id="traceAdvice" class="swt6.spring.basics.aop.advice.TraceAdvice"/>
+
+    <aop:config>
+        <aop:aspect id="traceAspect" ref="traceAdvice">
+            <aop:pointcut id="logic-methods" expression="execution(public * swt6.spring.basics.aop.logic..*.*(..))"/>
+            <aop:pointcut id="find-by-id-methods" expression="execution(public * swt6.spring.basics.aop.logic..*.find*ById(..))"/>
+            <aop:before method="traceBefore" pointcut-ref="logic-methods" />
+            <aop:after method="traceAfter" pointcut-ref="logic-methods" />
+            <aop:around method="traceAround" pointcut-ref="find-by-id-methods" />
+            <aop:after-throwing method="traceException" throwing="exception" pointcut-ref="logic-methods" />
+        </aop:aspect>
+    </aop:config>
+</beans>
