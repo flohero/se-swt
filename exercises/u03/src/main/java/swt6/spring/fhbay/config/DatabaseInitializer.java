@@ -8,6 +8,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.fhbay.domain.*;
+import swt6.spring.fhbay.dtos.CustomerDto;
 import swt6.spring.fhbay.services.ArticleService;
 import swt6.spring.fhbay.services.BidService;
 import swt6.spring.fhbay.services.CustomerService;
@@ -37,13 +38,13 @@ public class DatabaseInitializer implements CommandLineRunner {
         Customer c1 = new Customer("Max", "Muster", "max@muster.com", new Address("Austria", "1230", "Vienna", "Musterstraße") );
         Customer c2 = new Customer("Susi", "Muster", "sus@muster.com", new Address("Austria", "1230", "Vienna", "Musterstraße") );
         Customer c3 = new Customer("Franz", "Muster", "franz@muster.com", new Address("Austria", "1230", "Vienna", "Musterstraße") );
-        List<Customer> customers = customerService.saveMany(c1, c2, c3);
-        c1 = customers.get(0);
-        c2 = customers.get(1);
-        c3 = customers.get(2);
+        List<CustomerDto> customers = customerService.saveMany(c1, c2, c3);
+        CustomerDto cDto1 = customers.get(0);
+        CustomerDto cDto2 = customers.get(1);
+        CustomerDto cDto3 = customers.get(2);
 
-        Article a = articleService.save(new Article("Fish", "A water animal", 10, 0, LocalDate.now(), LocalDate.now().plusDays(2), c1, null, null, BiddingState.FOR_SALE, new Category("Animals")));
-        Bid bid1 = bidService.save(new Bid(100.0, LocalDate.now(), a, c2));
-        Bid bid2 = bidService.save(new Bid(110.0, LocalDate.now(), a, c3));
+        //Article a = articleService.save(new Article("Fish", "A water animal", 10, 0, LocalDate.now(), LocalDate.now().plusDays(2), c1, null, null, BiddingState.FOR_SALE, new Category("Animals")));
+        //Bid bid1 = bidService.save(new Bid(100.0, LocalDate.now(), a, c2));
+        //Bid bid2 = bidService.save(new Bid(110.0, LocalDate.now(), a, c3));
     }
 }
