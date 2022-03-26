@@ -115,4 +115,19 @@ public class ArticleDto extends BaseDto {
     public void setCategory(CategoryDto category) {
         this.category = category;
     }
+
+    @Override
+    public String toString() {
+        return name + "\n" +
+                description + '\n' +
+                "startPrice=" + startPrice +
+                ", endPrice=" + endPrice + "\n" +
+                "startDate=" + startDate +
+                ", endDate=" + endDate + "\n" +
+                "seller=" + seller + "\n" +
+                "buyer=" + buyer + "\n" +
+                "secondHighestBidder=" + secondHighestBidder + "\n" +
+                "state=" + state + "\n" +
+                "category=" + category + "\n";
+    }
 }

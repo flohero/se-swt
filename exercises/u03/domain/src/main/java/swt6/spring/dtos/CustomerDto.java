@@ -53,4 +53,9 @@ public class CustomerDto extends BaseDto {
     public void setPaymentAddress(Address paymentAddress) {
         this.paymentAddress = paymentAddress;
     }
+
+    @Override
+    public String toString() {
+        return getId() + ". " + firstname + " " + lastname;
+    }
 }
