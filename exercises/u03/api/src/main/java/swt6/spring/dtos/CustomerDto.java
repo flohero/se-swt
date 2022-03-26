@@ -1,9 +1,8 @@
 package swt6.spring.dtos;
 
+import swt6.spring.model.Address;
 
-import org.apache.tomcat.jni.Address;
-
-public class CustomerDto {
+public class CustomerDto extends BaseDto {
 
     private String firstname;
 

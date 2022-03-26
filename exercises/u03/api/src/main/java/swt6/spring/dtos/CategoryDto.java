@@ -1,6 +1,6 @@
 package swt6.spring.dtos;
 
-public class CategoryDto {
+public class CategoryDto extends BaseDto {
     private String name;
     private CategoryDto parentCategory;
 

@@ -1,0 +1,14 @@
+### Bids of Article
+GET http://localhost:8080/api/articles/1/bids
+
+### Place Bid on Article
+POST http://localhost:8080/api/articles/1/bids
+Content-Type: application/json
+
+{
+  "amount": 3000,
+  "date": "2022-03-26",
+  "customer": {
+      "id": 1
+    }
+}

@@ -1,4 +1,4 @@
-package swt6.spring.config;
+package swt6.spring;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

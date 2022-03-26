@@ -37,4 +37,11 @@ public class CustomerCommands {
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
     }
+
+    @ShellMethod("Find customer by Id")
+    public String findCustomer(@ShellOption Long id) {
+        return customerService.findById(id)
+                .map(Customer::toString)
+                .orElse(String.format("Customer with id %s not found", id));
+    }
 }
