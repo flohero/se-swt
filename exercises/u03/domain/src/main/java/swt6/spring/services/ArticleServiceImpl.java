@@ -4,10 +4,12 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.model.Article;
+import swt6.spring.model.BiddingState;
 import swt6.spring.model.Category;
 import swt6.spring.repositories.ArticleRepository;
 import swt6.spring.repositories.CategoryRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public Optional<Article> findById(Long id) {
-        if(id == null) {
+        if (id == null) {
             return Optional.empty();
         }
         return articleRepository.findById(id);
@@ -50,5 +52,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Category> findAllCategories() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public List<Article> findAuctionedArticles() {
+        return articleRepository.findAllByBuyerAndEndDateBeforeAndState(
+                null,
+                LocalDate.now(),
+                BiddingState.FOR_SALE
+        );
     }
 }

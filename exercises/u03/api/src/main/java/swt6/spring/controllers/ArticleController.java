@@ -59,6 +59,10 @@ public class ArticleController {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "customer already placed a bid on article"
             );
+        } catch (ArticleNotForSaleException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "article not for sale"
+            );
         }
     }
 

@@ -1,5 +1,7 @@
 package swt6.spring.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import swt6.spring.repositories.ArticleRepository;
 import swt6.spring.repositories.BidRepository;
 import swt6.spring.repositories.CustomerRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ public class BidServiceImpl implements BidService {
     private final BidRepository bidRepository;
     private final ArticleRepository articleRepository;
     private final CustomerRepository customerRepository;
+    private final Logger logger = LoggerFactory.getLogger(BidServiceImpl.class);
 
     public BidServiceImpl(BidRepository bidRepository, ArticleRepository articleRepository, CustomerRepository customerRepository) {
         this.bidRepository = bidRepository;
@@ -30,6 +34,12 @@ public class BidServiceImpl implements BidService {
     @Override
     public Optional<Bid> findSecondHighestBidForArticle(Article article) {
         Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.of(1, 1));
+        return bidPage.stream().findFirst();
+    }
+
+    @Override
+    public Optional<Bid> findHighestBidForArticle(Article article) {
+        Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.ofSize(1));
         return bidPage.stream().findFirst();
     }
 
@@ -52,7 +62,8 @@ public class BidServiceImpl implements BidService {
     public Bid placeBidForArticle(Long id, Bid bid) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(ArticleNotFoundException::new);
-        if (!article.getState().equals(BiddingState.FOR_SALE)) {
+        if (!article.getState().equals(BiddingState.FOR_SALE)
+                || article.getEndDate().isBefore(LocalDate.now())) {
             throw new ArticleNotForSaleException();
         }
 
@@ -70,7 +81,6 @@ public class BidServiceImpl implements BidService {
         }
 
         bid.setArticle(article);
-        bid.setId(null);
         return bidRepository.save(bid);
     }
 }

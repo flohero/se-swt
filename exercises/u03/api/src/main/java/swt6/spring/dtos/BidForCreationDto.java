@@ -2,7 +2,7 @@ package swt6.spring.dtos;
 
 import java.time.LocalDate;
 
-public class BidForCreationDto extends BaseDto {
+public class BidForCreationDto {
     private Double amount;
 
     private LocalDate date;

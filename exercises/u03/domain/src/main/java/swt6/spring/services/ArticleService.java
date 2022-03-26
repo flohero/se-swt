@@ -15,4 +15,6 @@ public interface ArticleService {
     Category createCategory(Category category);
 
     List<Category> findAllCategories();
+
+    List<Article> findAuctionedArticles();
 }

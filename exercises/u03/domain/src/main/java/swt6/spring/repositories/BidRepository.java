@@ -8,6 +8,7 @@ import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
 import swt6.spring.model.Customer;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 

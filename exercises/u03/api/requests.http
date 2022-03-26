@@ -9,6 +9,6 @@ Content-Type: application/json
   "amount": 3000,
   "date": "2022-03-26",
   "customer": {
-      "id": 1
+      "id": 3
     }
 }

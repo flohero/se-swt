@@ -1,5 +1,5 @@
 package swt6.spring.model;
 
 public enum BiddingState {
-    SOLD, FOR_SALE, NOT_FOR_SALE
+    SOLD, FOR_SALE, NOT_FOR_SALE, EXPIRED
 }

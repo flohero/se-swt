@@ -11,6 +11,8 @@ public interface BidService {
 
     Optional<Bid> findSecondHighestBidForArticle(Article article);
 
+    Optional<Bid> findHighestBidForArticle(Article article);
+
     Bid save(Bid bid);
 
     List<Bid> findBidsForArticleId(Long id);
