@@ -2,11 +2,13 @@ package swt6.spring.services;
 
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.model.Article;
 import swt6.spring.model.Category;
 import swt6.spring.repositories.ArticleRepository;
 import swt6.spring.repositories.CategoryRepository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -34,5 +36,19 @@ public class ArticleServiceImpl implements ArticleService {
             return Optional.empty();
         }
         return articleRepository.findById(id);
+    }
+
+    @Override
+    @Transactional
+    public Category createCategory(Category category) {
+        Category parent = category.getParentCategory();
+        Optional<Category> optionalParent = categoryRepository.findCategoryByName(parent.getName());
+        category.setParentCategory(optionalParent.orElseGet(() -> createCategory(parent)));
+        return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
     }
 }
