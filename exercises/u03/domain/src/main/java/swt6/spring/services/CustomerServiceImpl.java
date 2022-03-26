@@ -2,6 +2,7 @@ package swt6.spring.services;
 
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.model.Customer;
 import swt6.spring.repositories.CustomerRepository;
 
@@ -18,23 +19,26 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
+    @Transactional
     public List<Customer> saveMany(Customer... customers) {
         return customerRepository.saveAll(List.of(customers));
     }
 
     @Override
+    @Transactional
     public Customer save(Customer customer) {
         return customerRepository.save(customer);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Customer> findById(Long id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        return customer;
+        return customerRepository.findById(id);
     }
 }

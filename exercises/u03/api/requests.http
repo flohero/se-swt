@@ -1,8 +1,8 @@
 ### Bids of Article
-GET http://localhost:8080/api/articles/1/bids
+GET http://localhost:8080/api/auctions/1/bids
 
 ### Place Bid on Article
-POST http://localhost:8080/api/articles/1/bids
+POST http://localhost:8080/api/auctions/1/bids
 Content-Type: application/json
 
 {
@@ -12,3 +12,10 @@ Content-Type: application/json
       "id": 3
     }
 }
+
+### Get Article
+GET http://localhost:8080/api/auctions/1
+
+### Get Articles
+GET http://localhost:8080/api/auctions?state=SOLD
+

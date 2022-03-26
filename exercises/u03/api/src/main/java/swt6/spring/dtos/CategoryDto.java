@@ -2,7 +2,6 @@ package swt6.spring.dtos;
 
 public class CategoryDto extends BaseDto {
     private String name;
-    private CategoryDto parentCategory;
 
     public String getName() {
         return name;
@@ -10,13 +9,5 @@ public class CategoryDto extends BaseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public CategoryDto getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(CategoryDto parentCategory) {
-        this.parentCategory = parentCategory;
     }
 }

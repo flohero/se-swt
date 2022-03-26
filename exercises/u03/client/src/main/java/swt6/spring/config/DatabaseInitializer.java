@@ -31,7 +31,6 @@ public class DatabaseInitializer implements CommandLineRunner {
     }
 
     @Override
-    @Transactional
     public void run(String... args) {
         Customer c1 = new Customer("Max", "Muster", "max@muster.com", new Address("Austria", "1230", "Vienna", "Musterstraße") );
         Customer c2 = new Customer("Susi", "Muster", "sus@muster.com", new Address("Austria", "1230", "Vienna", "Musterstraße") );

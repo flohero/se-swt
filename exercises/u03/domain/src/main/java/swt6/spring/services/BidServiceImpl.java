@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
 import swt6.spring.model.BiddingState;
@@ -12,6 +13,7 @@ import swt6.spring.model.Customer;
 import swt6.spring.repositories.ArticleRepository;
 import swt6.spring.repositories.BidRepository;
 import swt6.spring.repositories.CustomerRepository;
+import swt6.spring.services.exceptions.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,17 +34,21 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Bid> findSecondHighestBidForArticle(Article article) {
         Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.of(1, 1));
         return bidPage.stream().findFirst();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<Bid> findHighestBidForArticle(Article article) {
         Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.ofSize(1));
         return bidPage.stream().findFirst();
     }
 
+    @Override
+    @Transactional
     public Bid save(Bid bid) {
         if (bid.getArticle().getSeller().equals(bid.getCustomer())) {
             throw new SellerAndBuyerEqualException();
@@ -51,6 +57,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Bid> findBidsForArticleId(Long id) {
         if (!articleRepository.existsById(id)) {
             throw new ArticleNotFoundException();
@@ -59,6 +66,7 @@ public class BidServiceImpl implements BidService {
     }
 
     @Override
+    @Transactional
     public Bid placeBidForArticle(Long id, Bid bid) {
         Article article = articleRepository.findById(id)
                 .orElseThrow(ArticleNotFoundException::new);

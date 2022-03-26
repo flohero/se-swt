@@ -2,9 +2,9 @@ package swt6.spring.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
 import swt6.spring.model.BiddingState;
@@ -14,9 +14,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@EnableScheduling
 public class VickreyAuctionService implements AuctionService {
 
+    private static final int RATE = 10000;
     private final BidService bidService;
     private final ArticleService articleService;
     private final Logger logger = LoggerFactory.getLogger(VickreyAuctionService.class);
@@ -27,14 +27,15 @@ public class VickreyAuctionService implements AuctionService {
     }
 
 
-    @Scheduled(fixedRate = 10000)
     @Override
+    @Transactional
+    @Scheduled(fixedRate = RATE)
     public void updateBuyersOfArticles() {
-        logger.info("Update Buyer for Article");
         List<Article> articles = articleService.findAuctionedArticles();
         for (Article article : articles) {
             updateArticleBuyer(article);
         }
+        logger.info("Updated {} auctioned articles", articles.size());
     }
 
     private void updateArticleBuyer(Article article) {
@@ -46,6 +47,7 @@ public class VickreyAuctionService implements AuctionService {
             article.setSecondHighestBidder(secondHighestBid.get().getCustomer());
             article.setBuyer(highestBid.get().getCustomer());
             article.setEndDate(LocalDate.now());
+            article.setEndPrice(secondHighestBid.get().getAmount());
             article.setState(BiddingState.SOLD);
         }
         articleService.save(article);

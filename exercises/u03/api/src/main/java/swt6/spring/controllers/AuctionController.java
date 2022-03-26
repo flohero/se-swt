@@ -4,22 +4,27 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import swt6.spring.dtos.ArticleDto;
 import swt6.spring.dtos.BidDto;
 import swt6.spring.dtos.BidForCreationDto;
 import swt6.spring.model.Bid;
+import swt6.spring.model.BiddingState;
 import swt6.spring.services.*;
+import swt6.spring.services.exceptions.*;
 
 import java.util.stream.Stream;
 
 @RestController
-@RequestMapping("/api/articles")
-public class ArticleController {
+@RequestMapping("/api/auctions")
+public class AuctionController {
 
     private final BidService bidService;
+    private final ArticleService articleService;
     private final ModelMapper mapper;
 
-    public ArticleController(BidService bidService, ModelMapper mapper) {
+    public AuctionController(BidService bidService, ArticleService articleService, ModelMapper mapper) {
         this.bidService = bidService;
+        this.articleService = articleService;
         this.mapper = mapper;
     }
 
@@ -64,6 +69,24 @@ public class ArticleController {
                     HttpStatus.CONFLICT, "article not for sale"
             );
         }
+    }
+
+    @GetMapping("{id}")
+    public ArticleDto getArticle(@PathVariable Long id) {
+        try {
+            return mapper.map(articleService.findById(id), ArticleDto.class);
+        } catch (ArticleNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "article not found"
+            );
+        }
+    }
+
+    @GetMapping
+    public Stream<ArticleDto> getArticles(@RequestParam BiddingState state) {
+        return articleService.findArticles(state)
+                .stream()
+                .map(a -> mapper.map(a, ArticleDto.class));
     }
 
 }

@@ -8,11 +8,13 @@ import swt6.spring.model.BiddingState;
 import swt6.spring.model.Category;
 import swt6.spring.repositories.ArticleRepository;
 import swt6.spring.repositories.CategoryRepository;
+import swt6.spring.services.exceptions.ArticleNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -26,6 +28,7 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional
     public Article save(@NonNull Article article) {
         Category category = Objects.requireNonNull(article.getCategory());
         article.setCategory(categoryRepository.save(category));
@@ -33,11 +36,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Optional<Article> findById(Long id) {
+    @Transactional(readOnly = true)
+    public Article findById(Long id) {
         if (id == null) {
-            return Optional.empty();
+            throw new IllegalArgumentException();
         }
-        return articleRepository.findById(id);
+        return articleRepository.findById(id).orElseThrow(ArticleNotFoundException::new);
     }
 
     @Override
@@ -50,16 +54,24 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Category> findAllCategories() {
         return categoryRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Article> findAuctionedArticles() {
         return articleRepository.findAllByBuyerAndEndDateBeforeAndState(
                 null,
                 LocalDate.now(),
                 BiddingState.FOR_SALE
         );
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Article> findArticles(BiddingState state) {
+        return articleRepository.findByState(state);
     }
 }
