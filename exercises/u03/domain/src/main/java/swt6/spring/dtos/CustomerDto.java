@@ -14,6 +14,13 @@ public class CustomerDto extends BaseDto {
 
     private Address paymentAddress;
 
+    public CustomerDto() {
+    }
+
+    public CustomerDto(Long id) {
+        setId(id);
+    }
+
     public String getFirstname() {
         return firstname;
     }

@@ -4,15 +4,12 @@ import swt6.spring.model.BiddingState;
 
 import java.time.LocalDate;
 
-public class ArticleDto extends BaseDto {
-
+public class ArticleForCreationDto {
     private String name;
 
     private String description;
 
     private double startPrice;
-
-    private double endPrice;
 
     private LocalDate startDate;
 
@@ -20,19 +17,22 @@ public class ArticleDto extends BaseDto {
 
     private CustomerDto seller;
 
-    private CustomerDto buyer;
-
-    private CustomerDto secondHighestBidder;
-
     private BiddingState state;
 
     private CategoryDto category;
 
-    public ArticleDto() {
+    public ArticleForCreationDto() {
     }
 
-    public ArticleDto(Long id) {
-        setId(id);
+    public ArticleForCreationDto(String name, String description, double startPrice, LocalDate startDate, LocalDate endDate, CustomerDto seller, BiddingState state, CategoryDto category) {
+        this.name = name;
+        this.description = description;
+        this.startPrice = startPrice;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.seller = seller;
+        this.state = state;
+        this.category = category;
     }
 
     public String getName() {
@@ -59,14 +59,6 @@ public class ArticleDto extends BaseDto {
         this.startPrice = startPrice;
     }
 
-    public double getEndPrice() {
-        return endPrice;
-    }
-
-    public void setEndPrice(double endPrice) {
-        this.endPrice = endPrice;
-    }
-
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -91,22 +83,6 @@ public class ArticleDto extends BaseDto {
         this.seller = seller;
     }
 
-    public CustomerDto getBuyer() {
-        return buyer;
-    }
-
-    public void setBuyer(CustomerDto buyer) {
-        this.buyer = buyer;
-    }
-
-    public CustomerDto getSecondHighestBidder() {
-        return secondHighestBidder;
-    }
-
-    public void setSecondHighestBidder(CustomerDto secondHighestBidder) {
-        this.secondHighestBidder = secondHighestBidder;
-    }
-
     public BiddingState getState() {
         return state;
     }
@@ -121,20 +97,5 @@ public class ArticleDto extends BaseDto {
 
     public void setCategory(CategoryDto category) {
         this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return name + "\n" +
-                description + '\n' +
-                "startPrice=" + startPrice +
-                ", endPrice=" + endPrice + "\n" +
-                "startDate=" + startDate +
-                ", endDate=" + endDate + "\n" +
-                "seller=" + seller + "\n" +
-                "buyer=" + buyer + "\n" +
-                "secondHighestBidder=" + secondHighestBidder + "\n" +
-                "state=" + state + "\n" +
-                "category=" + category + "\n";
     }
 }

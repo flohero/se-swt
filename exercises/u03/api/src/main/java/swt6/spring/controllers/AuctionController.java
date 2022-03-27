@@ -5,8 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import swt6.spring.dtos.ArticleDto;
+import swt6.spring.dtos.ArticleForCreationDto;
 import swt6.spring.dtos.BidDto;
 import swt6.spring.dtos.BidForCreationDto;
+import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
 import swt6.spring.model.BiddingState;
 import swt6.spring.services.*;
@@ -30,6 +32,7 @@ public class AuctionController {
 
     @GetMapping("{id}/bids")
     public Stream<BidDto> bidsForArticle(@PathVariable Long id) {
+        System.out.println("HERE");
         try {
             return bidService.findBidsForArticleId(id)
                     .stream()
@@ -87,6 +90,21 @@ public class AuctionController {
         return articleService.findArticles(state)
                 .stream()
                 .map(a -> mapper.map(a, ArticleDto.class));
+    }
+
+    @PostMapping
+    public ArticleDto createArticle(@RequestBody ArticleForCreationDto articleDto) {
+        try {
+            return mapper.map(articleService.createArticle(mapper.map(articleDto, Article.class)), ArticleDto.class);
+        } catch(InvalidArticleException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, "article is not valid"
+            );
+        } catch(CustomerNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "customer not found"
+            );
+        }
     }
 
 }
