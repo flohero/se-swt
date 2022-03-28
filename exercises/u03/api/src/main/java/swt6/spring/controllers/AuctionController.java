@@ -11,7 +11,8 @@ import swt6.spring.dtos.BidForCreationDto;
 import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
 import swt6.spring.model.BiddingState;
-import swt6.spring.services.*;
+import swt6.spring.services.ArticleService;
+import swt6.spring.services.BidService;
 import swt6.spring.services.exceptions.*;
 
 import java.util.stream.Stream;
@@ -32,7 +33,6 @@ public class AuctionController {
 
     @GetMapping("{id}/bids")
     public Stream<BidDto> bidsForArticle(@PathVariable Long id) {
-        System.out.println("HERE");
         try {
             return bidService.findBidsForArticleId(id)
                     .stream()
@@ -40,6 +40,25 @@ public class AuctionController {
         } catch (ArticleNotFoundException ae) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "article not found"
+            );
+        }
+    }
+
+    @GetMapping("{id}/winning-bid")
+    public BidDto winningBidForArticle(@PathVariable Long id) {
+        try {
+            return mapper.map(bidService.findWinningBidForArticle(id), BidDto.class);
+        } catch (ArticleNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "article not found"
+            );
+        } catch (ArticleNotAuctionedException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "article not auctioned"
+            );
+        } catch (NoBidPresentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "no bid present"
             );
         }
     }
@@ -71,6 +90,10 @@ public class AuctionController {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "article not for sale"
             );
+        } catch (InvalidBidException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "bidding amount lower than asking price"
+            );
         }
     }
 
@@ -86,8 +109,9 @@ public class AuctionController {
     }
 
     @GetMapping
-    public Stream<ArticleDto> getArticles(@RequestParam BiddingState state) {
-        return articleService.findArticles(state)
+    public Stream<ArticleDto> getArticles(@RequestParam(required = false) BiddingState state,
+                                          @RequestParam(required = false) String query) {
+        return articleService.findArticles(state, query)
                 .stream()
                 .map(a -> mapper.map(a, ArticleDto.class));
     }
@@ -96,11 +120,11 @@ public class AuctionController {
     public ArticleDto createArticle(@RequestBody ArticleForCreationDto articleDto) {
         try {
             return mapper.map(articleService.createArticle(mapper.map(articleDto, Article.class)), ArticleDto.class);
-        } catch(InvalidArticleException e) {
+        } catch (InvalidArticleException e) {
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "article is not valid"
             );
-        } catch(CustomerNotFoundException e) {
+        } catch (CustomerNotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND, "customer not found"
             );

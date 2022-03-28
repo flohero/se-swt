@@ -18,4 +18,6 @@ public interface BidService {
     List<Bid> findBidsForArticleId(Long id);
 
     Bid placeBidForArticle(Long id, Bid bid);
+
+    Bid findWinningBidForArticle(Long id);
 }

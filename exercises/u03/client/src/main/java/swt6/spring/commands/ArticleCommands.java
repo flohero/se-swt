@@ -25,15 +25,19 @@ public class ArticleCommands {
     }
 
     @ShellMethod("Show all articles")
-    public String listArticles(@ShellOption(defaultValue = "SOLD") BiddingState biddingState) {
+    public String listArticles(@ShellOption(defaultValue = "") BiddingState biddingState, @ShellOption(defaultValue = "") String query) {
         return webClient.get()
-                .uri(uriBuilder -> uriBuilder
-                        .queryParam("state", biddingState.toString())
-                        .build()
+                .uri(uriBuilder -> {
+                            if (biddingState != null) {
+                                uriBuilder.queryParam("state", biddingState.toString());
+                            }
+                            return uriBuilder.queryParam("query", query).build();
+                        }
                 )
                 .retrieve()
                 .bodyToFlux(ArticleDto.class)
                 .map(Object::toString)
+                .switchIfEmpty(Mono.just("No articles found"))
                 .reduce((rest, article) -> String.join(" \n", rest, article)) // reduce the flux to a readable String
                 .onErrorResume(e -> Mono.just("Could not read articles from server")) // Top error handling
                 .block(); // Have to block this call, since spring shell will just toString the Flux
@@ -41,13 +45,13 @@ public class ArticleCommands {
 
     @ShellMethod("Create Article")
     public String createArticle(@ShellOption String name,
-                                    @ShellOption String description,
-                                    @ShellOption double startPrice,
-                                    @ShellOption LocalDate startDate,
-                                    @ShellOption LocalDate endDate,
-                                    @ShellOption Long asCustomer,
-                                    @ShellOption BiddingState state,
-                                    @ShellOption String category) {
+                                @ShellOption String description,
+                                @ShellOption double startPrice,
+                                @ShellOption LocalDate startDate,
+                                @ShellOption LocalDate endDate,
+                                @ShellOption Long asCustomer,
+                                @ShellOption BiddingState state,
+                                @ShellOption String category) {
         //create-article bla bla 2000 2022-03-27 2022-03-28 1 FOR_SALE Animals
         ArticleForCreationDto article = new ArticleForCreationDto(
                 name,

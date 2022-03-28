@@ -5,6 +5,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import reactor.core.publisher.Mono;
 import swt6.spring.dtos.ArticleDto;
 import swt6.spring.dtos.BidDto;
@@ -48,6 +49,17 @@ public class BidCommands {
                 .bodyToMono(BidDto.class)
                 .map(a -> String.format("Created Bid %s", a.getId()))
                 .onErrorResume(e -> Mono.just("Could not create bid"))
+                .block();
+    }
+
+    @ShellMethod("Find winning bid for article")
+    public String winningBid(@ShellOption Long id) {
+        return webClient.get()
+                .uri(builder -> builder.path("/{id}/winning-bid").build(id))
+                .retrieve()
+                .bodyToMono(BidDto.class)
+                .map(Object::toString)
+                .onErrorResume(e -> Mono.just("Cannot find winning bid"))
                 .block();
     }
 }

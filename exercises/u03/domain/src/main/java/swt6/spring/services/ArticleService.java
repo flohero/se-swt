@@ -18,7 +18,7 @@ public interface ArticleService {
 
     List<Article> findAuctionedArticles();
 
-    List<Article> findArticles(BiddingState state);
+    List<Article> findArticles(BiddingState state, String query);
 
     Article createArticle(Article article);
 }

@@ -36,14 +36,14 @@ public class BidServiceImpl implements BidService {
     @Override
     @Transactional(readOnly = true)
     public Optional<Bid> findSecondHighestBidForArticle(Article article) {
-        Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.of(1, 1));
+        Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateAsc(article, PageRequest.of(1, 1));
         return bidPage.stream().findFirst();
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<Bid> findHighestBidForArticle(Article article) {
-        Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateDesc(article, PageRequest.ofSize(1));
+        Page<Bid> bidPage = bidRepository.findByArticleOrderByAmountDescDateAsc(article, PageRequest.ofSize(1));
         return bidPage.stream().findFirst();
     }
 
@@ -88,7 +88,27 @@ public class BidServiceImpl implements BidService {
             throw new DuplicatedBidException();
         }
 
+        if(bid.getAmount() < article.getStartPrice()) {
+            throw new InvalidBidException();
+        }
+
         bid.setArticle(article);
         return bidRepository.save(bid);
+    }
+
+    @Override
+    public Bid findWinningBidForArticle(Long id) {
+        Optional<Article> article = articleRepository.findById(id);
+        if (article.isEmpty()) {
+            throw new ArticleNotFoundException();
+        }
+        if(article.get().getState() != BiddingState.SOLD) {
+            throw new ArticleNotAuctionedException();
+        }
+        Optional<Bid> bid = findHighestBidForArticle(article.get());
+        if(bid.isEmpty()) {
+            throw new NoBidPresentException();
+        }
+        return bid.get();
     }
 }

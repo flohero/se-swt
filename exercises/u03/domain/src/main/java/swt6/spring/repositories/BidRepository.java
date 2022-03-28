@@ -6,19 +6,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import swt6.spring.model.Article;
 import swt6.spring.model.Bid;
+import swt6.spring.model.BiddingState;
 import swt6.spring.model.Customer;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface BidRepository extends JpaRepository<Bid, Long> {
 
-    Page<Bid> findByArticleOrderByAmountDescDateDesc(Article article, Pageable pageable);
+    Page<Bid> findByArticleOrderByAmountDescDateAsc(Article article, Pageable pageable);
 
     List<Bid> findByArticle_Id(Long id);
 
     Optional<Bid> findByCustomerAndArticle(Customer customer, Article article);
+
+    Optional<Bid> findByArticle_IdAndArticleStateOrderByAmountDescDateAsc(Long id, BiddingState state);
 
 }

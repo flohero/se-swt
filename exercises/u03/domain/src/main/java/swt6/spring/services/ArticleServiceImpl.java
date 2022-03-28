@@ -75,8 +75,17 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Article> findArticles(BiddingState state) {
-        return articleRepository.findByState(state);
+    public List<Article> findArticles(BiddingState state, String query) {
+        if(state == null && (query == null || query.isEmpty())) {
+            return articleRepository.findAll();
+        }
+        if(query == null || query.isEmpty()) {
+            return articleRepository.findByState(state);
+        }
+        if(state == null) {
+            return articleRepository.findByNameContainsOrDescriptionContains(query, query);
+        }
+        return articleRepository.findByStateAndNameContainsOrStateAndDescriptionContains(state, query, state, query);
     }
 
     @Override

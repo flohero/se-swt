@@ -8,12 +8,15 @@ import swt6.spring.model.Customer;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByBuyerAndEndDateBeforeAndState(Customer buyer, LocalDate date, BiddingState state);
+
+    List<Article> findByStateAndNameContainsOrStateAndDescriptionContains(BiddingState state1, String name, BiddingState state2, String description);
+
+    List<Article> findByNameContainsOrDescriptionContains(String name, String description);
 
     List<Article> findByState(BiddingState state);
 }
